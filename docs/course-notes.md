@@ -27,6 +27,13 @@ test:
 - validation troubleshooting:
     * Validation is stuck. Nothing happens. If the interface is stuck or loading after 2-3 minutes of waiting, open a new tab and return to your main project page. If you don't see the message that you need to validate your account, it could mean that the validation was successful. 
 
+#### Update 3 June 2023: GitLab New Navigation
+
+- recently GitLab has rolled out a new navigation
+- to be able to follow along with the course, it recommend switching back to the old navigation
+
+![GitLab New Navigation](old-new-nav.png)
+
 #### 📚 Resources
 * [How to set up your SSH key for GitLab on Windows 10](https://medium.com/devops-with-valentine/2021-how-to-your-ssh-key-for-gitlab-on-windows-10-587579192be0?sk=b836675d967a923ea81d911d73702629)
 * [How to set up your SSH key for GitLab on macOS](https://medium.com/devops-with-valentine/2021-how-to-setup-your-ssh-key-for-gitlab-on-macos-dfccec6904fb?sk=fe992efb74d7bd794cf76bb8a26f0437)
