@@ -8,7 +8,7 @@
 - you will get hands-on experience building pipelines with GitLab CI and deploying software to AWS
 
 #### 📚 Resources
-* [Subscribe to my YouTube channel](http://www.youtube.com/channel/UCUUl_HXJjU--iYjUkIgEcTw?sub_confirmation=1)
+* [Stay THANK YOU for this course by subscribing on YouTube](https://www.youtube.com/@vdespa?sub_confirmation=1)
 * [Join the DevOps newsletter](https://sendfox.com/lp/1x9k59)
 
 ### Lesson 2 - Your first GitLab project
@@ -647,7 +647,7 @@ COPY build /usr/share/nginx/html
 
 #### 💬 Let's stay in touch 
 
-* [Stay THANK YOU by subscribing](http://www.youtube.com/channel/UCUUl_HXJjU--iYjUkIgEcTw?sub_confirmation=1)
+* [Stay THANK YOU for this course by subscribing on YouTube](https://www.youtube.com/@vdespa?sub_confirmation=1)
 * [Join the DevOps newsletter](https://sendfox.com/lp/1x9k59)
 * [Follow me on Twitter](https://twitter.com/vdespa)
 * [Let's connect on LinkedIn](https://www.linkedin.com/in/vdespa/)
