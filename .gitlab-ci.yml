@@ -9,7 +9,7 @@ build website:
       - yarn install
       - yarn build
     artifacts: 
-    paths:
+    path:
       - build
 
 test websites:
