@@ -20,7 +20,7 @@ test websites:
       - apk add curl
       - serve -s build &
       - sleep 10
-      - curl http://localhost:3000 | grep "Learn GitLab CI"
+      - curl http://localhost:3000 | grep "React App"
 
 .unit test:
     image: node:16-alpine
