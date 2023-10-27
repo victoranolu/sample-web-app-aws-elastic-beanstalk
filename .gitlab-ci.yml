@@ -9,8 +9,8 @@ build website:
       - yarn install
       - yarn build
     artifacts: 
-    path:
-      - build
+      paths:
+        - build
 
 test websites:
     image: alpine
