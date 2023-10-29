@@ -36,4 +36,7 @@ deploy to web:
       name: google/cloud-sdk:452.0.1-alpine
       entrypoint: [""]
     script: 
-      - gcloud --version  
+      - echo "Omo mehn i dey try" > omo.txt
+      - gcloud --version
+      - gcloud storage buckets create gs://$GOOGLE_BUCKET --default-storage-class=STANDARD --location=$GOOGLE_LOCATION --uniform--bucket-level-access
+      - gcloud storage cp omo.txt gs://$GOOGLE_BUCKET/omo.txt
