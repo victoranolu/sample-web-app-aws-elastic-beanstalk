@@ -1,6 +1,7 @@
 stages: 
     - build
     - test
+    - deploy
 
 build website:
     image: node:16-alpine
@@ -28,3 +29,9 @@ test websites:
     script:
       - yarn install
       - yarn test
+
+
+deploy to web:
+    image: 
+      name: google/cloud-sdk:452.0.1-alpine
+      entrypoint: [""]
