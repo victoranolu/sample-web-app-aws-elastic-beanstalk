@@ -35,3 +35,5 @@ deploy to web:
     image: 
       name: google/cloud-sdk:452.0.1-alpine
       entrypoint: [""]
+    script: 
+      - gcloud --version  
