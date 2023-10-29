@@ -39,5 +39,6 @@ deploy to web:
       - echo "Omo mehn i dey try" > omo.txt
       - gcloud --version
       - gcloud auth activate-service-account --key-file $GOOGLE_SERVICE_ACCOUNT
+      - gcloud config set project $GOOGLE_PROJECT_ID
       - gcloud storage buckets create gs://$GOOGLE_BUCKET --default-storage-class=STANDARD --uniform-bucket-level-access
       - gcloud storage cp omo.txt gs://$GOOGLE_BUCKET/omo.txt
