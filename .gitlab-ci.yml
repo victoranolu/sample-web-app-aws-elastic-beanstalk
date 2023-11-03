@@ -3,7 +3,7 @@ stages:
     - test
     - deploy
 
-.build website:
+build website:
     image: node:16-alpine
     stage: build
     script:
@@ -13,7 +13,7 @@ stages:
       paths:
         - build
 
-.test websites:
+test websites:
     image: node:16-alpine
     stage: test
     script:
@@ -23,7 +23,7 @@ stages:
       - sleep 10
       - curl http://localhost:3000 | grep "React App"
 
-.unit test:
+unit test:
     image: node:16-alpine
     stage: test
     script:
@@ -36,9 +36,8 @@ deploy to web:
       name: google/cloud-sdk:452.0.1-alpine
       entrypoint: [""]
     script: 
-      - echo "Omo mehn i dey try" > omo.txt
       - gcloud --version
       - gcloud auth activate-service-account --key-file $GOOGLE_SERVICE_ACCOUNT
       - gcloud config set project $GOOGLE_PROJECT_ID
       - gcloud storage buckets create gs://$GOOGLE_BUCKET --default-storage-class=STANDARD --uniform-bucket-level-access
-      - gcloud storage cp omo.txt gs://$GOOGLE_BUCKET/omo.txt
+      - gcloud storage rsync build gs://$GOOGLE_BUCKET
