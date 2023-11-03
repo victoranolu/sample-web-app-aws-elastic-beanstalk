@@ -41,3 +41,5 @@ deploy to web:
       - gcloud config set project $GOOGLE_PROJECT_ID
       - gcloud storage buckets create gs://$GOOGLE_BUCKET --default-storage-class=STANDARD --uniform-bucket-level-access
       - gcloud storage rsync build gs://$GOOGLE_BUCKET
+      - gcloud storage buckets add-iam-policy-binding  gs://$GOOGLE_BUCKET --member=allUsers --role=roles/storage.objectViewer
+      - gcloud storage buckets update gs://$GOOGLE_BUCKET --web-main-page-suffix=index.html --web-error-page=index.html
