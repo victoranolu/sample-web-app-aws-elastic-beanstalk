@@ -2,6 +2,10 @@ stages:
     - build
     - test
     - deploy
+    - post-deploy
+
+variables: 
+    APP_BASE_URL: https://storage.googleapis.com/nobodyknows05/index.html
 
 build website:
     image: node:16-alpine
@@ -43,3 +47,10 @@ deploy to web:
       - gcloud storage rsync build gs://$GOOGLE_BUCKET
       - gcloud storage buckets add-iam-policy-binding  gs://$GOOGLE_BUCKET --member=allUsers --role=roles/storage.objectViewer
       - gcloud storage buckets update gs://$GOOGLE_BUCKET --web-main-page-suffix=index.html --web-error-page=index.html
+
+
+post-production test: 
+    image: curlimages/curl
+    stage: post-deploy
+    script:
+      - curl $APP_BASE_URL | grep "React App"
