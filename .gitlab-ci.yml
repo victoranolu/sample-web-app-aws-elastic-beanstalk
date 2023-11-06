@@ -1,11 +1,9 @@
 stages: 
     - build
-    - test
-    - deploy
-    - post-deploy
-
-variables: 
-    APP_BASE_URL: https://storage.googleapis.com/nobodyknows05/index.html
+    - test 
+    - deploy to staging
+    - deploy to prod
+    
 
 build website:
     image: node:16-alpine
@@ -35,7 +33,7 @@ unit test:
       - yarn test
 
 
-.deploy to web:
+.deploy:
     image: 
       name: google/cloud-sdk:452.0.1-alpine
       entrypoint: [""]
@@ -49,8 +47,12 @@ unit test:
       - gcloud storage buckets update gs://$GOOGLE_BUCKET --web-main-page-suffix=index.html --web-error-page=index.html
 
 
-post-production test: 
-    image: curlimages/curl
-    stage: post-deploy
-    script:
-      - curl $APP_BASE_URL | grep "React App"
+deploy to staging:
+    stage: deploy to staging
+    environment: staging
+    extends: .deploy
+
+deploy to prod:
+    stage: deploy to prod
+    environment: production
+    extends: .deploy
