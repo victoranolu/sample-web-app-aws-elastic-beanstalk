@@ -13,7 +13,7 @@ build website:
       - yarn install
       - yarn build
       - yarn test
-      - echo $CI_PIPELINE_IID > build/version.html
+      - echo $APP_VERSION > build/version.html
     artifacts: 
       paths:
         - build
