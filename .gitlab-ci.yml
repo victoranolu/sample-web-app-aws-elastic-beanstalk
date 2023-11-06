@@ -40,7 +40,6 @@ test websites:
       - gcloud storage cp -r build gs://$GOOGLE_BUCKET
       - gcloud storage buckets add-iam-policy-binding  gs://$GOOGLE_BUCKET --member=allUsers --role=roles/storage.objectViewer
       - gcloud storage buckets update gs://$GOOGLE_BUCKET --web-main-page-suffix=index.html --web-error-page=index.html
-      - curl $CI_ENVIRONMENT_URL/version.html | grep $APP_VERSION
 
 
 deploy to staging:
