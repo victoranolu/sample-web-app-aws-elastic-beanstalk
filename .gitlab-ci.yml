@@ -1,11 +1,9 @@
 stages: 
     - build
-    - test 
-    - deploy to staging
-    - deploy to prod
+    - package
     
 variables:
-    APP_VERSION: $CI_PIPELINE_IID
+    APP_VERSION= $CI_PIPELINE_IID
 build website:
     image: node:16-alpine
     stage: build
@@ -18,36 +16,11 @@ build website:
       paths:
         - build
 
-test websites:
-    image: node:16-alpine
-    stage: test
+build docker image:
+    stage: package
+    image: docker:20.10.12
+    services:
+      - docker:20.10.12-dind
     script:
-      - yarn global add serve
-      - apk add curl
-      - serve -s build &
-      - sleep 10
-      - curl http://localhost:3000 | grep "React App"
-
-
-.deploy:
-    image: 
-      name: google/cloud-sdk:452.0.1-alpine
-      entrypoint: [""]
-    script: 
-      - gcloud --version
-      - gcloud auth activate-service-account --key-file $GOOGLE_SERVICE_ACCOUNT
-      - gcloud config set project $GOOGLE_PROJECT_ID
-      - gcloud storage cp -r build gs://$GOOGLE_BUCKET
-      - gcloud storage buckets add-iam-policy-binding  gs://$GOOGLE_BUCKET --member=allUsers --role=roles/storage.objectViewer
-      - gcloud storage buckets update gs://$GOOGLE_BUCKET --web-main-page-suffix=index.html --web-error-page=index.html
-
-
-deploy to staging:
-    stage: deploy to staging
-    environment: stage
-    extends: .deploy
-
-deploy to prod:
-    stage: deploy to prod
-    environment: prod
-    extends: .deploy
+      - docker build -t $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$APP_VERSION .
+      - docker image ls
