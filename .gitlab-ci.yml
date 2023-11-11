@@ -2,6 +2,7 @@ stages:
     - build
     - package
     - testing
+    - deploy
     
 variables:
     APP_VERSION: $CI_PIPELINE_IID
@@ -37,3 +38,26 @@ test docker image:
         alias: website
     script:
       - curl http://website/version.html | grep $APP_VERSION
+
+
+deploy to prod:
+    stage: deploy
+    variables:
+      APP_NAME: web-app
+      APP_NAME_ENV: web-app-env
+    image:
+      name: amazon/aws-cli:2.4.11
+      entrypoint: [""]
+    environment: prod
+    script: 
+      - aws --version
+      - yum install -y gettext
+      - export DEPLOY_TOKEN=$(echo $DEPLOY_TOKEN | tr -d "/n" | base64)
+      - envsubst < templates/Dockerrun.aws.json > Dockerrun.aws.json
+      - envsubst < templates/auth.json > auth.json
+      - aws s3 cp Dockerrun.aws.json s3://$AWS_BUCKET/Dockerrun.aws.json
+      - aws s3 cp auth.json s3://$AWS_BUCKET/auth.json 
+      - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $APP_VERSION --source-bundle S3Bucket=$AWS_BUCKET,S3Key=Dockerrun.aws.json
+      - aws elasticbeanstalk update-environment --application-name $APP_NAME --version-label $APP_VERSION --environment-name $APP_NAME_ENV
+      - aws elasticbeanstalk wait environment-updated --application-name $APP_NAME --version-label $APP_VERSION --environment-name $APP_NAME_ENV 
+      - curl $CI_ENVIRONMENT_URL/version.html | grep $APP_VERSION
